@@ -29,11 +29,10 @@ func main() {
 		MaxAge:           300,
 	}))
 
-	router.Get("/healthz", handleReadiness)
-
-	router.Get("/error", func(w http.ResponseWriter, r *http.Request) {
-		respondWithError(w, "something went wrong please try again later", 500)
-	})
+	v1router := chi.NewRouter()
+	v1router.Get("/healthz", handleReadiness)
+	v1router.Get("/error", handleError)
+	router.Mount("/v1", v1router)
 
 	server := &http.Server{
 		Handler: router,
