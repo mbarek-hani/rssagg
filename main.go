@@ -6,7 +6,6 @@ import (
 	"os"
 
 	chi "github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 )
@@ -29,7 +28,6 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
-	router.Use(middleware.Logger)
 
 	router.Get("/healthz", handleReadiness)
 
