@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -18,7 +17,7 @@ func (apiCfg *apiConfig) handleCreateUser(w http.ResponseWriter, r *http.Request
 	params := parameters{}
 	err := decoder.Decode(&params)
 	if err != nil {
-		respondWithError(w, fmt.Sprintf("error parsing json: %s", err.Error()), 400)
+		respondWithError(w, "error parsing json", 400)
 		return
 	}
 
