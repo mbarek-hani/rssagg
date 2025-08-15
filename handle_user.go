@@ -29,11 +29,8 @@ func (apiCfg *apiConfig) handleCreateUser(w http.ResponseWriter, r *http.Request
 	})
 
 	if err != nil {
-		respondWithError(w, "something went wrong", 500)
+		respondWithError(w, "something went wrong, couldn't create the user", 500)
 		return
 	}
-	data, _ := json.Marshal(user)
-	w.Header().Add("content-type", "application/json")
-	w.WriteHeader(201)
-	w.Write(data)
+	respondWithJson(w, user, 201)
 }
