@@ -13,9 +13,9 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-insert into users (id, name, created_at, updated_at)
-values ($1, $2, $3, $4)
-returning id, name, created_at, updated_at
+insert into users (id, name, created_at, updated_at, api_key)
+values ($1, $2, $3, $4, encode(sha256(random()::text::bytea),'hex'))
+returning id, name, created_at, updated_at, api_key
 `
 
 type CreateUserParams struct {
@@ -38,6 +38,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.Name,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.ApiKey,
 	)
 	return i, err
 }
