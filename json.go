@@ -19,6 +19,9 @@ func respondWithJson(w http.ResponseWriter, payload any, code int) {
 }
 
 func respondWithError(w http.ResponseWriter, message string, code int) {
+	if code >= 500 {
+		slog.Error(message, "statusCode", code)
+	}
 	type ErrorResponse struct {
 		Error string `json:"error"`
 	}
